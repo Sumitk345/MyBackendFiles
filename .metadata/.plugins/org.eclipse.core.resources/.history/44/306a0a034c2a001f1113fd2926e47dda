@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Data</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2>Customer Data</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Gender</th>
+                    <th>Location</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.id}"></td>
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.gender}"></td>
+                    <td th:text="${customer.location}"></td>
+                    <td><a th:href="@{/customer/delete(id=${customer.id})}"><i class="fa-solid fa-trash" style="color: red;font-size: 18px;"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="https://kit.fontawesome.com/828b92339c.js" crossorigin="anonymous"></script>
+</html>

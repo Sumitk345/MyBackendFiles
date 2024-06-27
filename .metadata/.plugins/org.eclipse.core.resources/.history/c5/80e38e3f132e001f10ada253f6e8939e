@@ -1,0 +1,72 @@
+package com.sumit.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.sumit.dto.EmployeePriority;
+import com.sumit.dto.TodoProrityCount;
+import com.sumit.entity.Employee;
+import com.sumit.entity.Todo;
+import com.sumit.repository.EmployeeRepository;
+import com.sumit.repository.TodoRepository;
+
+@Service
+public class TodoService implements CrudOperations<Todo>{
+
+	@Autowired
+	private TodoRepository todoRepository;
+
+	@Override
+	public Todo saveobject(Todo object) {
+		return todoRepository.save(object);
+	}
+
+	@Override
+	public List<Todo> fetchAllRecords() {
+		return todoRepository.findAll();
+	}
+
+	@Override
+	public Todo getSingleRecord(int id) {
+		return todoRepository.findById(id).get();
+	}
+
+	@Override
+	public Todo modifyDbRecordById(int id, Todo object) {
+		Todo todo = todoRepository.findById(id).get();
+		
+		todo.setPriority(object.getPriority());
+		todo.setTodoTitle(object.getTodoTitle());
+		todo.setEmployees(object.getEmployees());
+		
+		if(todo==null)
+			return null;
+		else
+			return todoRepository.save(todo);
+	}
+
+	@Override
+	public void deleteRecordById(int id) {
+        Todo todo = todoRepository.findById(id).get();
+		
+		if(todo!=null)
+			todoRepository.deleteById(id);
+	}
+	
+	public List<TodoProrityCount> countByPriority()
+	{
+		return todoRepository.findCountByPriority();
+	}
+	
+	public List<EmployeePriority> employeeByPriority()
+	{
+		return todoRepository.findemployeeBypriority();
+	}
+	
+	public List<EmployeePriority> employeeByPriorityName(String priority)
+	{
+		return todoRepository.findemployeeBypriorityName(priority);
+	}
+}

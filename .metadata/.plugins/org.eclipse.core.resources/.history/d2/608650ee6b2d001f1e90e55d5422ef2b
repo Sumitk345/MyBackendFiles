@@ -1,0 +1,5 @@
+package com.sumit.dto;
+
+public interface EmployeePriority {
+
+}

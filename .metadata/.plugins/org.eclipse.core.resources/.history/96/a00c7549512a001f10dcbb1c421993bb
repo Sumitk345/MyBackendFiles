@@ -1,0 +1,36 @@
+package com.sumit.controler;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+
+import com.sumit.entity.UserAccount;
+import com.sumit.service.UserService;
+
+
+@Controller
+@RequestMapping(value = "/user")
+public class UserController {
+
+	@Autowired
+	UserService userService;
+	
+	@GetMapping("/get")
+	public String getAllUsers(Model model)
+	{
+		model.addAttribute("user", userService.getUserAccount());
+		return "User";
+	}
+	
+	@PostMapping(value="/save", produces = {"application/json", "application/xml"})
+	public String saveBook(@ModelAttribute UserAccount User, Model model)
+	{
+		userService.saveEntity(User);
+		model.addAttribute("user", userService.getUserAccount());
+		return "User";
+	}
+}

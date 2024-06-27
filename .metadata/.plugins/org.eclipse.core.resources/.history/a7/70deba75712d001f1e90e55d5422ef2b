@@ -1,0 +1,9 @@
+package com.sumit.dto;
+
+import java.util.List;
+
+public interface EmployeePriority {
+	public String getPriority();
+	public List<String> getEmployees();
+	
+}
